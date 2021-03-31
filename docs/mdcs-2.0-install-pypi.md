@@ -17,7 +17,7 @@
 * To apply the given PyPI process to a Linux environment to get a basic installation going, there are only slight modifications to should be performed.
 * Specific differences you should be aware of when installing on Linux or Mac are as follows:
 
-  1. **Suppporting Utilities:** The specific supporting utilities that are downloaded (i.e., redis, celery, mongo) - the install links for all those point to generic locations where you should just choose the ones appropriate to your platform.
+  1. **Supporting Utilities:** The specific supporting utilities that are downloaded (i.e., redis, celery, mongo) - the install links for all those point to generic locations where you should just choose the ones appropriate to your platform.
 
   2. **Virtual Environment:** The specific python virtual environment may be varied, but it doesn't have to be.
      1. That is, you can install `Anaconda` on Windows, Linux or Mac. So, those commands should remain identical.
@@ -111,7 +111,7 @@
 ###	1. Install supporting applications on your host system.
 
 * Python 3.6.8: https://www.anaconda.com/distribution/ (choose python 3.x)
-* MongoDB 3.4.1: https://www.mongodb.com/download-center#community
+* MongoDB 4.0.3: https://www.mongodb.com/download-center#community
 * Redis 5.0: https://redis.io/download
 * Celery    : NOTE: This is installed below via `pip install`.
 * gettext   : This utility is necessary for supporting internationalization in MDCS 2.0 systems >= MDCS 2.0 beta2.
@@ -329,30 +329,83 @@ $$ mongo --port 27017 -u "mdb_admin_user" -p "mdb_admin_pwd" --authenticationDat
 
 #### Edit and save <install_path>\mdcs-master\mdcs\settings.py file.
 
-* Original settings.py settings:
+Some values of the `settings.py` file are set using environment
+variables. Here is a list of expected environment variables:
+
+| Variable | Description |
+| ----------- | ----------- |
+| DJANGO_SECRET_KEY     | [Secret Key](https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/#secret-key) for Django (should be a "large random value") |
+| ALLOWED_HOSTS         | Comma-separated list of hosts (e.g. ALLOWED_HOSTS=127.0.0.1,localhost), see [Allowed Hosts](https://docs.djangoproject.com/en/2.2/ref/settings/#allowed-hosts) for more info.|
+| SERVER_URI            | URI of the server (e.g. for local deployment, http://127.0.0.1:8000) |
+| SERVER_NAME           | Name of the server (e.g. MDCS) |
+| MONGO_HOST            | MongoDB host |
+| MONGO_PORT            | MongoDB port (default port: 27017)|
+| MONGO_USER            | User for MongoDB |
+| MONGO_PASS            | User password for MongoDB |
+| MONGO_DB              | Name of the Mongo database (e.g. mdcs) |
+| POSTGRES_HOST         | Postrges Host |
+| POSTGRES_PORT         | Postgres Port (default port: 5432)|
+| POSTGRES_USER         | User for Postgres |
+| POSTGRES_PASS         | User password for Postgres |
+| POSTGRES_DB           | Name of the Postgres database (e.g. mdcs) |
+| REDIS_HOST            | Redis host |
+| REDIS_PORT            | Redis Port (default port: 6379) |
+| REDIS_PASS            | Password for Redis|
+
+Not all variables are required, depending on the server configuration
+(e.g. if the development server uses a sqlite3 database, instead of
+postgres, environment variables for postgres won't be required).
+For development purposes, custom settings are provided in: `mdcs/dev_settings.py`.
+Those settings also require to set a few environment variables. To do
+so, copy the `.env.dev.example` into a `.env` file at the same location.
+This `.env` should not be pushed to the repository. You can update the
+values of the `.env` with values that work for your own configuration.
+For mongodb:
 ```
-		MONGO_USER     = "mgi_user"
-		MONGO_PASSWORD = "mgi_password"
+MONGO_USER=<mongodb_nonadmin_username>
+MONGO_PASS=<mongodb_nonadmin_password>
+```
+Example:
+```
+MONGO_USER=mdb_user
+MONGO_PASSWORD=mdb_pwd
 ```
 
-* Change to:
+To run django commands, using a custom settings file, you can use the
+following syntax:
+```
+python manage.py <command> --settings=<custom_settings>
+```
+Example: start the server with development settings
+```
+python manage.py runserver --settings=mdcs.dev_settings
+```
+Or set the `DJANGO_SETTINGS_MODULE` environment variable:
+```
+export DJANGO_SETTINGS_MODULE=<custom_settings>
+python manage.py <command>
+```
+Example:
+```
+export DJANGO_SETTINGS_MODULE=mdcs.dev_settings
+python manage.py runserver
+```
 
-	* Command:
-		* Enter your own mongodb non-administrative username and password here. See the example below.
-			* Edit <install_path>\mdcs-master\mdcs\settings.py
-			* Change MONGO_USER and MONGO_PASSWORD settings to your own mongodb non-administrative username and password.
-
-	```
-			MONGO_USER     = "<mongodb_nonadmin_username>"
-			MONGO_PASSWORD = "<mongodb_nonadmin_password>"
-	```
-
-	* Example:
-
-	```
-			MONGO_USER     = "mdb_user"
-			MONGO_PASSWORD = "mdb_pwd"
-	```
+NOTES:
+- Additional packages are required for development. In your dev
+environment, run the following command to install those packages:
+```
+$$ pip install -r requirements.dev.txt
+```
+- the key differences between the main `settings.py` file and the
+`dev_settings.py` file is that the development version overrides the
+databases setting to use sqlite3 instead of postgres, and sets the
+`DEBUG` setting to `True`.
+- settings for deployment in production can be written the same way
+as the development settings of this repository, by adding and overriding
+the main settings file. Additional information about writing a
+settings file for production can be found here:
+https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 #### Start Redis server.
 
