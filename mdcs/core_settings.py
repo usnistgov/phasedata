@@ -19,6 +19,10 @@ WEBSITE_ADMIN_COLOR = "yellow"
 # Lists in data not stored if number of elements is over the limit (e.g. 100)
 SEARCHABLE_DATA_OCCURRENCES_LIMIT = None
 
+CAN_ANONYMOUS_ACCESS_PUBLIC_DOCUMENT = True
+
+DISPLAY_NIST_HEADERS = True
+
 PARSER_DOWNLOAD_DEPENDENCIES = True
 """ boolean: Does the parser download dependencies
 """
