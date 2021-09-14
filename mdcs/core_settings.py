@@ -87,20 +87,12 @@ ID_PROVIDER_SYSTEMS = {
     "local": {
         "class": "core_linked_records_app.utils.providers.local.LocalIdProvider",
         "args": [],
-    },
-    # "handle": {
-    #     "class": "core_linked_records_app.utils.providers.handle_net.HandleNetSystem",
-    #     "args": [
-    #         "https://handle-server.example.org:8000",
-    #         "300%3APREFIX/USER",
-    #         "password",
-    #     ],
-    # },
+    }
 }
 """ dict: provider systems available for registering PIDs.
 """
 
-ID_PROVIDER_PREFIXES = ["cdcs"]
+ID_PROVIDER_PREFIXES = ["phasedata"]
 """ list<str>: accepted providers if manually specifying PIDs (first item is the
 default prefix)
 """
