@@ -92,7 +92,7 @@ ID_PROVIDER_SYSTEMS = {
 """ dict: provider systems available for registering PIDs.
 """
 
-ID_PROVIDER_PREFIXES = ["phasedata"]
+ID_PROVIDER_PREFIXES = ["phase"]
 """ list<str>: accepted providers if manually specifying PIDs (first item is the
 default prefix)
 """
