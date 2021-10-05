@@ -447,7 +447,10 @@ if SERVER_URI.lower().startswith("https"):
 if ENABLE_SAML2_SSO_AUTH:
     import saml2
     import saml2.saml
-    from core_main_app.utils.saml2.utils import load_saml_config_from_env
+    from core_main_app.utils.saml2.utils import (
+        load_saml_config_from_env,
+        load_django_attribute_map_from_env,
+    )
 
     # Update Django Settings
     if "djangosaml2" not in INSTALLED_APPS:
@@ -475,22 +478,8 @@ if ENABLE_SAML2_SSO_AUTH:
     SAML_CREATE_UNKNOWN_USER = (
         os.getenv("SAML_CREATE_UNKNOWN_USER", "False").lower() == "true"
     )
-    SAML_ATTRIBUTE_MAPPING = {
-        "windowsAccountName": ("username",),
-        "commonname": ("first_name",),
-        "surname": ("last_name",),
-        "emailaddress": ("email",),
-    }
+    SAML_ATTRIBUTE_MAPPING = load_django_attribute_map_from_env()
+
     # Configure Pysaml2
     SAML_CONFIG = load_saml_config_from_env(server_uri=SERVER_URI, base_dir=BASE_DIR)
-
-    SAML_CONFIG["service"]["sp"]["logout_responses_signed"] = False
-    SAML_CONFIG["service"]["sp"]["logout_requests_signed"] = True
-
-    SAML_CONFIG["service"]["sp"]["signing_algorithm"] = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
-    SAML_CONFIG["service"]["sp"]["digest_algorithm"] = "http://www.w3.org/2001/04/xmlenc#sha256"
-
-
-    SAML_CONFIG["metadata"] = {
-    "local": ["/srv/curator/federationmetadata.xml"]
-    }
+    SAML_ACS_FAILURE_RESPONSE_FUNCTION = "core_main_app.views.user.views.saml2_failure"

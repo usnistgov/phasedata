@@ -1,124 +1,26 @@
-{% load staticfiles %}
-<style>
-    ul {
-        list-style: unset;
-    }
-    
-    li {
-        margin-left: 30px;
-    }
-    
-    .title-container {
-        width: 75%;
-        float: left;
-    }
-    
-    #mgi-diagram {
-        width: 300px;
-    }
-    
-    .custom-title {
-        margin-top: 91px;
-    }
-    
-    .description-container {
-        width: 67%;
-        float: left;
-        margin-top: 50px;
-    }
-    
-    #phasedata-diagram {
-        width: 100%;
-    }
-    
-    .phasedata-diagram-container {
-        width: 25%;
-        float: right;
-    }
-    
-    @media screen and (max-width: 1520px) {
-        .description-container {
-            width: 100%;
-        }
-    }
-    
-    @media screen and (max-width: 1072px) {
-        .description-container {
-            width: 100%;
-        }
-        .custom-title {
-            margin-top: 0;
-        }
-        #mgi-diagram {
-            margin-left: 52px;
-        }
-        .title-container {
-            width: 70%;
-        }
-        .phasedata-diagram-container {
-            width: 30%;
-        }
-    }
-    
-    @media screen and (max-width: 980px) {
-        .phasedata-diagram-container {
-            width: 50%
-        }
-        .title-container {
-            width: 50%;
-        }
-    }
-    
-    @media screen and (max-width: 890px) {
-        .phasedata-diagram-container {
-            width: 75%;
-            margin-left: 12%;
-            display: block;
-        }
-        .title-container {
-            width: 100%;
-            display: block;
-        }
-    }
-</style>
+{% load static %}
 <div class="row">
-    <div class="col-md-12">
-        <div class="row title-container">
-            <img id="mgi-diagram" src="/static/core_main_app/img/mgi_diagram.jpg" alt="Material Genome Initiative diagram">
-            <h2 class="custom-title">{{ CUSTOM_TITLE }}</h2>
-        </div>
-        <div class="phasedata-diagram-container">
-            <img id="phasedata-diagram" src="/static/core_main_app/img/custom-diagram.png" alt="Phasedata diagram">
-        </div>
-        <div class="description-container">
-            <h1>Overview</h1>
+    <div class="row justify-content-center" id="intro">
+        <div class="col-md-5">
+            <h2>{{ CUSTOM_TITLE }}</h2>
             <p>
-                An essential part of the MGI is the development of phase-based data repository. Phase-based data are important for many applications, including the development of <b><a href="http://www.calphad.org">CALPHAD</a></b>-based multicomponent
-                databases. The phase-based data include zero-dimensional, one-dimensional, two-dimensional, and three-dimensional data. Examples of some of the phase-data included are phase transformation temperatures (e.g. melting, solidus, solvus),
-                lattice parameters, thermal expansion, elastic constants, and diffusion coefficients and compositions profiles. These data are reported as functions of composition, temperature and/or pressure.
+                This system allows for the curation of Material Data in a repository using
+                predefined templates.
             </p>
             <p>
-                This repository consists of four data sources:
+                This is being developed at the National Institute of Standards and Technology and
+                is made available to solicit comments from the Material Science community. Please
+                do not enter any proprietary data into this system.
             </p>
-            <ul>
-                <li>Curated experimental and computational multicomponent alloy data in support of the development Co-based superalloys. Currently the data are focus on diffusion data and transition temperatures. These data are curated using the <b><a href="https://mgi.nist.gov/materials-data-curation-system">NIST Materials Data Curation System.</a></b>This
-                    collection is being developed in conjunction with <b><a href="http://chimad.northwestern.edu">CHiMaD.</a></b></li>
-                <li>The previous NIST Diffusion Data Center data is now available through this site by searching using DiffusionDataCenter schema. The NIST Diffusion Data Center collection includes collection of over 14,100 international papers, theses, and
-                    government reports on diffusion published before 1980. John Manning and Daniel Butrymowicz developed the original collection and reviewed all of the papers in the collection. These papers are now searchable online via this site based
-                    on author and diffusion system. This resource is a useful and functional data source for NIST and the scientific community, as it provides a means to search the diffusion literature before 1980, a capability that is virtually nonexistent
-                    with other electronic databases, particularly when searching for non-archival journal papers. Some of the collected papers that are unique to this collection include English translations of Japanese and Russian articles and government
-                    issued reports.</li>
-                <li><b><a href="http://trc.nist.gov/metals_data/metals_data.php">Thermodynamic Research Center Data </a></b>provides access to thermophysical property data with a focus on unary, binary, and ternary metal systems through a free online web
-                    application and associated API. All data are from original experimental publications and include full provenance and critically evaluated uncertainty</li>
-                <li><b><a href="http://www.ctcms.nist.gov/~gkl/selfdiffusion.html">Self diffusion</a></b> and <b><a href="http://www.ctcms.nist.gov/~gkl/impuritydiffusion.html">impurity diffusion </a></b>coefficient data (experimental and computational) are
-                    searchable via the periodic table.
-                </li>
-            </ul>
+        </div>
+        <div class="col-md-3">
+            <img id="mgi-diagram" src="{% static 'core_main_app/img/mgi_diagram.jpg' %}"
+                 alt="Material Genome Initiative diagram">
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-5 col-md-offset-1" id="tiles">
+<div class="row justify-content-center">
+    <div class="col-md-5" id="tiles">
     </div>
     <div class="col-md-5" id="templates">
     </div>
