@@ -97,7 +97,7 @@ ID_PROVIDER_PREFIXES = ["phase"]
 default prefix)
 """
 
-PID_XPATH = "root.pid"
+PID_XPATH = "AMSample.pid"
 """ string: location of the PID in the document, specified as dot notation
 """
 
