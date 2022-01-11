@@ -12,12 +12,11 @@ CUSTOM_TITLE = "Materials Data Curation System"
 CUSTOM_SUBTITLE = "Part of the Materials Genome Initiative"
 CURATE_MENU_NAME = "Data Curation"
 WEBSITE_ADMIN_COLOR = "yellow"
+CAN_ANONYMOUS_ACCESS_PUBLIC_DOCUMENT = True
+DISPLAY_NIST_HEADERS = True
 # black, black-light, blue, blue-light, green, green-light, purple, purple-light, red, red-light, yellow, yellow-light
 
-DATA_SOURCES_EXPLORE_APPS = [
-    "core_explore_federated_search_app",
-    "core_explore_oaipmh_app",
-]
+#DATA_SOURCES_EXPLORE_APPS = [ "core_explore_federated_search_app", "core_explore_oaipmh_app", ]
 
 # Lists in data not stored if number of elements is over the limit (e.g. 100)
 SEARCHABLE_DATA_OCCURRENCES_LIMIT = None
@@ -30,7 +29,7 @@ EXPLORE_ADD_DEFAULT_LOCAL_DATA_SOURCE_TO_QUERY = True
 """ boolean: Do we add the local data source to new queries by default
 """
 
-SSL_CERTIFICATES_DIR = True
+SSL_CERTIFICATES_DIR = False
 """ Either a boolean, in which case it controls whether requests verify the server's TLS certificate, 
 or a string, in which case it must be a path to a CA bundle to use.
 """
