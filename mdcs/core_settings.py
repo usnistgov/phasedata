@@ -12,6 +12,8 @@ CUSTOM_TITLE = "Materials Data Curation System"
 CUSTOM_SUBTITLE = "Part of the Materials Genome Initiative"
 CURATE_MENU_NAME = "Data Curation"
 WEBSITE_ADMIN_COLOR = "yellow"
+CAN_ANONYMOUS_ACCESS_PUBLIC_DOCUMENT = True
+DISPLAY_NIST_HEADERS = True
 # black, black-light, blue, blue-light, green, green-light, purple, purple-light, red, red-light, yellow, yellow-light
 
 #DATA_SOURCES_EXPLORE_APPS = [ "core_explore_federated_search_app", "core_explore_oaipmh_app", ]
